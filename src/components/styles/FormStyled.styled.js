@@ -12,12 +12,13 @@ const FormStyled = styled.div`
 
     & input {
       min-width: 350px;
-      border-radius: 4px;
-      border: none;
     }
   }
 
   & input {
+    width: 80%;
+    border-radius: 4px;
+    border: none;
     padding: 10px 20px;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     color: var(--clr-text);

@@ -5,6 +5,7 @@ const CountriesGrid = styled.div`
   display: grid;
   grid-column: 1/-1;
   grid-template-columns: repeat(auto-fill, minmax(calc(250px - 30px), 1fr));
+  justify-items: center;
   gap: 30px;
 
   .country-card {
