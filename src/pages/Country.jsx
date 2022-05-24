@@ -1,12 +1,24 @@
-import { useContext } from 'react'
+import axios from 'axios'
+import { useContext, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Container from '../components/styles/Container.styled'
 import CountryDetails from '../components/styles/CountryDetails.styled'
 import { CountryContext } from '../context/AppContext'
 
 function Country() {
-  const { countries } = useContext(CountryContext)
+  const { countries, setCountries } = useContext(CountryContext)
   const { countryName } = useParams()
+
+  useEffect(() => {
+    if (!countries.length) {
+      async function fetchCountries() {
+        const { data } = await axios.get('https://restcountries.com/v2/all')
+        console.log('c')
+        setCountries(data)
+      }
+      fetchCountries()
+    }
+  }, [])
 
   return (
     <Container>
