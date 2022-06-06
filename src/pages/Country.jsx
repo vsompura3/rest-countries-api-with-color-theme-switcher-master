@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import Container from '../components/styles/Container.styled'
 import CountryDetails from '../components/styles/CountryDetails.styled'
 import { CountryContext } from '../context/AppContext'
+import { formatNumber } from '../utils/helpers'
 
 function Country() {
   const { countries, setCountries } = useContext(CountryContext)
@@ -13,7 +14,6 @@ function Country() {
     if (!countries.length) {
       async function fetchCountries() {
         const { data } = await axios.get('https://restcountries.com/v2/all')
-        console.log('c')
         setCountries(data)
       }
       fetchCountries()
@@ -61,7 +61,8 @@ function Country() {
                       <p>Native Name:</p> <span>{country.nativeName}</span>
                     </li>
                     <li>
-                      <p>Population:</p> <span>{country.population}</span>
+                      <p>Population:</p>{' '}
+                      <span>{formatNumber(country.population)}</span>
                     </li>
                     <li>
                       <p>Region:</p> <span>{country.region}</span>
