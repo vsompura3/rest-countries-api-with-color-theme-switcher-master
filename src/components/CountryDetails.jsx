@@ -74,7 +74,7 @@ export const CountryDetails = ({
         <div>
           <p>Border Countries: </p>
           <ul className="border-countries">
-            {borderCountries &&
+            {borderCountries ? (
               borderCountries.map(({ name, alpha3Code }) => (
                 <li key={alpha3Code}>
                   <span>
@@ -86,7 +86,10 @@ export const CountryDetails = ({
                     </Link>
                   </span>
                 </li>
-              ))}
+              ))
+            ) : (
+              <span>NA</span>
+            )}
           </ul>
         </div>
       </div>
