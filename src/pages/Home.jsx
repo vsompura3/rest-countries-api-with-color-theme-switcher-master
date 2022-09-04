@@ -1,30 +1,44 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ROUTE_PATHS } from '../App'
+import { getCountries } from '../api/getCountries'
+import CountriesGrid from '../components/CountriesGrid'
+import Navbar from '../components/Navbar'
 
 function Home() {
-  const [countries, setCountries] = useState([])
+  const [countries, setCountries] = useState(
+    JSON.parse(localStorage.getItem('countries')) || [],
+  )
+  const [searchedCountry, setSearchedCountry] = useState('')
+  const [region, setRegion] = useState('')
 
   useEffect(() => {
-    console.log('fetching data')
-    axios
-      .get('https://restcountries.com/v2/all')
-      .then(({ data }) => setCountries(data))
-      .catch(err => console.log(err))
+    getCountries().then(data => {
+      setCountries(data)
+      localStorage.setItem('countries', JSON.stringify(data))
+    })
   }, [])
 
   return (
-    <div>
-      {countries.map(c => (
-        <div
-          key={c.name}
-          style={{ border: '1px solid black', padding: 20, margin: 10 }}
-        >
-          <Link to={ROUTE_PATHS.Country}>{c.name}</Link>
-        </div>
-      ))}
-    </div>
+    <>
+      <Navbar
+        searchedCountry={searchedCountry}
+        setSearchedCountry={setSearchedCountry}
+        region={region}
+        setRegion={setRegion}
+      />
+      <section
+        className="countries-wrapper"
+        aria-labelledby="secondary-heading"
+      >
+        <h2 className="sr-only" id="secondary-heading">
+          List of Countries
+        </h2>
+        <CountriesGrid
+          countries={countries}
+          searchedCountry={searchedCountry}
+          region={region}
+        />
+      </section>
+    </>
   )
 }
 
