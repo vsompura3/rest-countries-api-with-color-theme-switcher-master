@@ -480,10 +480,7 @@ main {
 }
 
 .border-country {
-  display: inline-block;
   text-decoration: none;
-  text-decoration: none;
-  display: inline-block;
   color: var(--text1);
   background-color: var(--surface2);
   box-shadow: var(--shadow-md);
